@@ -34,3 +34,4 @@ _test
 .DS_Store
 60_docker_mon
 docker_mon
+./go-mem-allocate

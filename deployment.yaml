@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: go-mem-allocate
+  labels:
+    app: go-mem-allocate
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: go-mem-allocate
+  template:
+    metadata:
+      labels:
+        app: go-mem-allocate
+      annotations:
+        prometheus.io/scrape: 'true'
+        prometheus.io/port: '8081'
+        prometheus.io/path: 'metrics'
+    spec:
+      containers:
+        - name: go-mem-allocate
+          image: registry.cn-beijing.aliyuncs.com/ning1875_haiwai_image/go-mem-allocate:v1
+          imagePullPolicy: Always
+          args:
+            -  -gb_num=3
+          ports:
+            - containerPort: 8081
+          resources:
+            requests:
+              cpu: 1
+              memory: 200Mi
+            limits:
+              cpu: 1
+              memory: 200Mi
